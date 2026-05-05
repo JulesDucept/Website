@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jules Ducept - PhD Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── Top Navigation ── */
+        #topNav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(255, 249, 230, 0.97);
+            border-bottom: 1px solid rgba(255, 140, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 1000;
+        }
+
+        #navName {
+            color: #FF8C00;
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        #navLinks {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #555;
+            text-decoration: none;
+            font-size: 15px;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #FF8C00;
+        }
+
+        .nav-link.active {
+            color: #FF8C00;
+            border-bottom-color: #FF8C00;
+        }
+
+        /* ── Content Scroller ── */
+        #contentScroller {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: scroll;
+        }
+
+        .section {
+            min-height: 100%;
+            padding: 40px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-inner {
+            max-width: 860px;
+            width: 100%;
+        }
+
+        /* ── Section backgrounds ── */
+        #section-about    { background: linear-gradient(135deg, #fff9e6 0%, #ffe6cc 100%); }
+        #section-paper1   { background: linear-gradient(135deg, #e8f5e9 0%, #fff9e6 100%); }
+        #section-paper2   { background: linear-gradient(135deg, #c8e6c9 0%, #e8f5e9 100%); }
+        #section-paper3   { background: linear-gradient(135deg, #bbdefb 0%, #c8e6c9 100%); }
+        #section-teaching { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+
+        /* ── Typography ── */
+        h1 {
+            color: #FF8C00;
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: #228B22;
+            font-size: 32px;
+            margin-bottom: 28px;
+            font-weight: normal;
+            border-bottom: 3px solid #FF8C00;
+            padding-bottom: 10px;
+        }
+
+        .position {
+            color: #228B22;
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .details {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .advisors {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #FF8C00;
+        }
+
+        .advisors-label {
+            color: #228B22;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .advisors-names {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: #0066cc;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .bio {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* ── Paper styles ── */
+        .paper-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .paper-title a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .paper-title a:hover {
+            text-decoration: underline;
+        }
+
+        .paper-authors {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        .paper-publication {
+            display: inline-block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 18px;
+            padding: 3px 10px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+        }
+
+        .abstract {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.75;
+            font-style: italic;
+            padding: 18px 22px;
+            border-left: 3px solid #FF8C00;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .paper-links {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .paper-links-label {
+            color: #888;
+            font-size: 13px;
+            font-style: italic;
+            margin-right: 2px;
+        }
+
+        .paper-link-tag {
+            color: #0066cc;
+            font-size: 13px;
+            text-decoration: none;
+            padding: 3px 10px;
+            border: 1px solid #b3d0f0;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.5);
+            transition: background 0.15s;
+        }
+
+        .paper-link-tag:hover {
+            background: rgba(0, 102, 204, 0.08);
+            text-decoration: none;
+        }
+
+        /* ── Teaching styles ── */
+        .teaching-item {
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .teaching-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .teaching-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .teaching-details {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* ── Mobile responsiveness ── */
+        @media (max-width: 700px) {
+            #topNav {
+                padding: 0 20px;
+                height: 52px;
+            }
+
+            #navName {
+                font-size: 16px;
+            }
+
+            #navLinks {
+                gap: 18px;
+            }
+
+            .nav-link {
+                font-size: 13px;
+            }
+
+            #contentScroller {
+                top: 52px;
+            }
+
+            .section {
+                padding: 40px 24px;
+            }
+
+            /* Stack photo and text vertically on About */
+            #section-about .section-inner > div:first-child {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 24px;
+            }
+
+            #section-about .advisors,
+            #section-about .contact-link {
+                text-align: left;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .paper-title {
+                font-size: 17px;
+            }
+
+            .abstract {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Top Navigation ── -->
+    <nav id="topNav">
+        <a id="navName" href="#section-about">Jules Ducept</a>
+        <div id="navLinks">
+            <a class="nav-link" href="#section-about">About</a>
+            <a class="nav-link" href="#section-paper1">Research</a>
+            <a class="nav-link" href="#section-teaching">Teaching</a>
+            <a class="nav-link" href="CV.pdf" target="_blank">CV</a>
+        </div>
+    </nav>
+
+    <!-- ── Content Scroller ── -->
+    <div id="contentScroller">
+
+        <!-- About -->
+        <div class="section" id="section-about">
+            <div class="section-inner">
+                <div style="display: flex; align-items: flex-start; gap: 40px; margin-bottom: 40px;">
+                    <img src="photo.jpg" alt="Jules Ducept" class="profile-photo">
+                    <div>
+                        <h1>Jules Ducept</h1>
+                        <p class="position">2nd Year PhD Student</p>
+                        <p class="details">
+                            Center for Economics at Paris-Saclay<br>
+                            Paris-Saclay University<br>
+                            Fellow at the International Tax Observatory
+                        </p>
+                        <div class="advisors">
+                            <p class="advisors-label">Advisors</p>
+                            <p class="advisors-names">
+                                Jérôme Héricourt<br>
+                                Gabriel Zucman
+                            </p>
+                        </div>
+                        <a href="mailto:jules.ducept@psemail.eu" class="contact-link">jules.ducept@psemail.eu</a>
+                    </div>
+                </div>
+                <h2>Research Interests</h2>
+                <p class="bio">
+                    My research focuses on <strong>international economics and public finance</strong>,
+                    with a particular emphasis on <strong>corporate income taxation in a globalized economy</strong>
+                    and the activities of multinational enterprises. I am interested in understanding how tax policy
+                    interacts with firm behavior, international tax competition, and the broader implications for
+                    government revenue and economic inequality.
+                </p>
+            </div>
+        </div>
+
+        <!-- Paper 1 -->
+        <div class="section" id="section-paper1">
+            <div class="section-inner">
+                <h2>Working Papers</h2>
+                <div class="paper-title">
+                    <a href="https://www.taxobservatory.eu/publication/declining-effective-tax-rates-of-multinationals-the-hidden-role-of-tax-base-reforms/" target="_blank">
+                        Declining Effective Tax Rates on Multinationals: The Hidden Role of Tax Base Reforms
+                    </a>
+                </div>
+                <div class="paper-authors">with <a href="https://www.diw.de/sixcms/detail.php?id=diw_01.c.876528.en" target="_blank">Sarah Godar</a></div>
+                <div class="paper-publication">ITO Working Paper &middot; DIW Discussion Paper</div>
+                <div class="abstract">
+                    This paper documents the rise of corporate tax-base narrowing measures in the EU using a novel dataset
+                    covering both tax rate and tax base reforms implemented between 2014 and 2022. Our findings indicate a
+                    shift away from the 'cut rate – broaden base' approach, as governments increasingly align corporate
+                    taxation with industrial policy objectives. We show that EU tax competition exerts downward pressure on
+                    high-tax countries, while the likelihood of tax cuts also varies with the political orientation of
+                    governments. Using financial accounts from more than 40,000 affiliates, we find that the average
+                    effective tax rate of multinational enterprises in the EU has declined more rapidly than the statutory
+                    rate and estimate that tax base reforms account for 24% of this decline. The estimated revenue cost of
+                    all reforms combined amounts to 3.5% of total corporate tax revenue collected from the sample firms.
+                    These revenue losses should be carefully weighed against the anticipated benefits of tax reforms.
+                </div>
+                <div class="paper-links">
+                    <span class="paper-links-label">Policy note:</span>
+                    <a class="paper-link-tag" href="https://www.taxobservatory.eu//www-site/uploads/2025/05/The-New-Face-of-Corporate-Tax-Competition.pdf" target="_blank">The New Face of Corporate Tax Competition</a>
+                </div>
+                <div class="paper-links">
+                    <span class="paper-links-label">Coverage:</span>
+                    <a class="paper-link-tag" href="https://www.taxnotes.com/tax-notes-today-international/base-erosion-and-profit-shifting-beps/eu-tax-observatory-urges-talks-pillar-2-compliant-tax-incentives/2025/05/06/7s5tg?highlight=EU%20Tax%20Observatory" target="_blank">Tax Notes</a>
+                    <a class="paper-link-tag" href="https://www.liberation.fr/economie/leurope-taxe-de-moins-en-moins-les-benefices-des-multinationales-ces-regimes-fiscaux-pourraient-stimuler-la-croissance-et-linnovation-20250506_NUXKVDRHURHTDDCDXNEOIK6I6Q/" target="_blank">Libération</a>
+                    <a class="paper-link-tag" href="https://archive.ph/TJH39" target="_blank">El País</a>
+                    <a class="paper-link-tag" href="https://www.eldiario.es/economia/impuesto-sociedades-reducido-cinco-puntos-multinacionales_1_12271917.html" target="_blank">El Diario</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paper 2 -->
+        <div class="section" id="section-paper2">
+            <div class="section-inner">
+                <h2>Working Papers</h2>
+                <div class="paper-title">
+                    <a href="https://www.taxobservatory.eu/publication/consumption-taxes-and-corporate-income-taxes-evidence-from-place-based-vat/" target="_blank">
+                        Consumption Taxes and Corporate Income Taxes: Evidence from Place-Based VAT
+                    </a>
+                </div>
+                <div class="paper-authors">with Evangelos Koumanakos and Panayiotis Nicolaides</div>
+                <div class="paper-publication">ITO Working Paper</div>
+                <div class="abstract">
+                    Using a quasi-experimental setting, we document that corporations decrease declared profits and
+                    corporate income taxes in response to an increase in the VAT rate. In an attempt to raise tax revenue
+                    during the Greek economic crisis, a 16% VAT rate, which existed for historicopolitical reasons in
+                    Greek islands, was harmonised to the national 24% rate. We combine tax filings with Orbis and ICAP
+                    data that enable us to geolocate corporations and to construct comparable groups based on locations in
+                    or out of the preferential rate. Counteracting the reform's intended effect, declared profits decreased
+                    by 28% and corporate income taxes by 34% on a permanent basis. Macroeconomic factors and a fall in
+                    reported revenue cannot fully explain this decrease. Pervasive tax evasion in the Greek islands, where
+                    corporations might have an opportunity to adjust profits, offers a plausible explanation of the
+                    magnitude of responses.
+                </div>
+            </div>
+        </div>
+
+        <!-- Paper 3 -->
+        <div class="section" id="section-paper3">
+            <div class="section-inner">
+                <h2>Side Projects</h2>
+                <div class="paper-title">
+                    Gender Bias in Voter Mobilization
+                </div>
+                <div class="paper-authors">with <a href="https://remilei.github.io/website/" target="_blank">Rémi Lei</a></div>
+                <div class="abstract">
+                    We study the role of voter preferences in generating gender gaps in electoral outcomes, separating
+                    intrinsic gender bias from differences in campaign spending. Our identification exploits the
+                    synchronized structure of French presidential and parliamentary elections: presidential runoffs
+                    provide constituency-level measures of partisan preferences in gender-neutral contests, while the
+                    subsequent parliamentary elections feature quasi-random variation in candidate gender configurations
+                    across constituencies. Using difference-in-differences and cross-sectional designs, we estimate that
+                    right-wing women candidates receive 5.2 percentage points fewer votes than comparable men candidates
+                    when competing against left-wing men opponents; the analogous penalty for left-wing women candidates
+                    is 2.5 percentage points. Decomposing the sources of these gaps, we find evidence of two distinct
+                    mechanisms: under-mobilization among voters aligned with the women candidate's party, and
+                    over-mobilization among voters from the opposing party, a pattern that is particularly pronounced
+                    on the right.
+                </div>
+            </div>
+        </div>
+
+        <!-- Teaching -->
+        <div class="section" id="section-teaching">
+            <div class="section-inner">
+                <h2>Teaching</h2>
+                <div class="teaching-item">
+                    <div class="teaching-title">Lecturer, International Taxation and Tax Avoidance</div>
+                    <div class="teaching-details">Paris Cité University — Masters &middot; Fall 2025</div>
+                </div>
+                <div class="teaching-item">
+                    <div class="teaching-title">Teaching Assistant, Econometrics</div>
+                    <div class="teaching-details">Evry Paris Saclay University — Undergraduates &middot; 2024–2026 &middot; Prof. Michel Guillard</div>
+                </div>
+                <div class="teaching-item">
+                    <div class="teaching-title">Teaching Assistant, Growth and Business Cycles</div>
+                    <div class="teaching-details">Evry Paris Saclay University — Undergraduates &middot; 2024–2026 &middot; Prof. Jérôme Héricourt</div>
+                </div>
+                <div class="teaching-item">
+                    <div class="teaching-title">Teaching Assistant, International Monetary Economics</div>
+                    <div class="teaching-details">Paris 1 Panthéon-Sorbonne University — Undergraduates &middot; Fall 2022 &middot; Prof. Sandra Poncet</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const scroller = document.getElementById('contentScroller');
+        const navLinks = document.querySelectorAll('#navLinks .nav-link');
+
+        // Map each section to its nav link index (0=About, 1=Research, 2=Teaching, 3=CV)
+        const sectionNavMap = {
+            'section-about':    0,
+            'section-paper1':   1,
+            'section-paper2':   1,
+            'section-paper3':   1,
+            'section-teaching': 2,
+        };
+
+        // Highlight active nav link as sections come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = sectionNavMap[entry.target.id];
+                    navLinks.forEach((link, i) => link.classList.toggle('active', i === idx));
+                }
+            });
+        }, { root: scroller, threshold: 0.5 });
+
+        Object.keys(sectionNavMap).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+
+        // Smooth scroll on nav link click
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const target = document.getElementById(href.slice(1));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+
+        // Also handle name link
+        document.getElementById('navName').addEventListener('click', e => {
+            e.preventDefault();
+            document.getElementById('section-about').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
