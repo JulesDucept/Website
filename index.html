@@ -90,9 +90,9 @@
 
         /* ── Section backgrounds ── */
         #section-about    { background: linear-gradient(135deg, #fff9e6 0%, #ffe6cc 100%); }
-        #section-paper1   { background: linear-gradient(135deg, #e8f5e9 0%, #fff9e6 100%); }
-        #section-paper2   { background: linear-gradient(135deg, #c8e6c9 0%, #e8f5e9 100%); }
-        #section-paper3   { background: linear-gradient(135deg, #bbdefb 0%, #c8e6c9 100%); }
+        #section-wip      { background: linear-gradient(135deg, #e8f5e9 0%, #fff9e6 100%); }
+        #section-paper1   { background: linear-gradient(135deg, #c8e6c9 0%, #e8f5e9 100%); }
+        #section-paper2   { background: linear-gradient(135deg, #bbdefb 0%, #c8e6c9 100%); }
         #section-teaching { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
 
         /* ── Typography ── */
@@ -128,8 +128,8 @@
         }
 
         .profile-photo {
-            width: 150px;
-            height: 200px;
+            width: 215px;
+            height: 287px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             object-fit: cover;
@@ -340,7 +340,7 @@
         <a id="navName" href="#section-about">Jules Ducept</a>
         <div id="navLinks">
             <a class="nav-link" href="#section-about">About</a>
-            <a class="nav-link" href="#section-paper1">Research</a>
+            <a class="nav-link" href="#section-wip">Research</a>
             <a class="nav-link" href="#section-teaching">Teaching</a>
             <a class="nav-link" href="CV.pdf" target="_blank">CV</a>
         </div>
@@ -383,6 +383,31 @@
             </div>
         </div>
 
+        <!-- Work in Progress -->
+        <div class="section" id="section-wip">
+            <div class="section-inner">
+                <h2>Work in Progress</h2>
+                <div class="paper-title">
+                    Gender Bias in Voter Mobilization
+                </div>
+                <div class="paper-authors">with <a href="https://remilei.github.io/website/" target="_blank">Rémi Lei</a></div>
+                <div class="abstract">
+                    We estimate the gender penalty faced by women candidates in elections. We exploit the
+                    synchronization of French national elections in a difference-in-differences design that overcomes
+                    two common identification challenges in the literature: variation in party preferences of voters
+                    and strategic allocation of women candidates. Presidential runoffs reveal local partisan
+                    preferences in gender-neutral contests, while the subsequent parliamentary races allow us to
+                    estimate party-specific gender penalties. Relative to a race between two men, a right-wing woman
+                    facing a left-wing man loses 5.2 margin points, against 2.5 for a left-wing woman. We trace these
+                    gaps to an asymmetric mobilization channel: the aligned electorate under-mobilizes when their
+                    candidate is a woman, while only right-wing voters over-mobilize against an opposing woman. A
+                    cross-sectional decomposition attributes part of the penalty to the gender gap in campaign
+                    funding, which stems primarily from private donors giving less to women, leaving a residual
+                    consistent with biased voter preferences.
+                </div>
+            </div>
+        </div>
+
         <!-- Paper 1 -->
         <div class="section" id="section-paper1">
             <div class="section-inner">
@@ -408,7 +433,7 @@
                 </div>
                 <div class="paper-links">
                     <span class="paper-links-label">Policy note:</span>
-                    <a class="paper-link-tag" href="https://www.taxobservatory.eu//www-site/uploads/2025/05/The-New-Face-of-Corporate-Tax-Competition.pdf" target="_blank">The New Face of Corporate Tax Competition</a>
+                    <a class="paper-link-tag" href="https://taxobservatory.world/publication/the-new-face-of-corporate-tax-competition/" target="_blank">The New Face of Corporate Tax Competition</a>
                 </div>
                 <div class="paper-links">
                     <span class="paper-links-label">Coverage:</span>
@@ -446,31 +471,6 @@
             </div>
         </div>
 
-        <!-- Paper 3 -->
-        <div class="section" id="section-paper3">
-            <div class="section-inner">
-                <h2>Side Projects</h2>
-                <div class="paper-title">
-                    Gender Bias in Voter Mobilization
-                </div>
-                <div class="paper-authors">with <a href="https://remilei.github.io/website/" target="_blank">Rémi Lei</a></div>
-                <div class="abstract">
-                    We study the role of voter preferences in generating gender gaps in electoral outcomes, separating
-                    intrinsic gender bias from differences in campaign spending. Our identification exploits the
-                    synchronized structure of French presidential and parliamentary elections: presidential runoffs
-                    provide constituency-level measures of partisan preferences in gender-neutral contests, while the
-                    subsequent parliamentary elections feature quasi-random variation in candidate gender configurations
-                    across constituencies. Using difference-in-differences and cross-sectional designs, we estimate that
-                    right-wing women candidates receive 5.2 percentage points fewer votes than comparable men candidates
-                    when competing against left-wing men opponents; the analogous penalty for left-wing women candidates
-                    is 2.5 percentage points. Decomposing the sources of these gaps, we find evidence of two distinct
-                    mechanisms: under-mobilization among voters aligned with the women candidate's party, and
-                    over-mobilization among voters from the opposing party, a pattern that is particularly pronounced
-                    on the right.
-                </div>
-            </div>
-        </div>
-
         <!-- Teaching -->
         <div class="section" id="section-teaching">
             <div class="section-inner">
@@ -503,9 +503,9 @@
         // Map each section to its nav link index (0=About, 1=Research, 2=Teaching, 3=CV)
         const sectionNavMap = {
             'section-about':    0,
+            'section-wip':      1,
             'section-paper1':   1,
             'section-paper2':   1,
-            'section-paper3':   1,
             'section-teaching': 2,
         };
 
