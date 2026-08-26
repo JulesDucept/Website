@@ -1,0 +1,35 @@
+# ── Windows ──
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ── macOS ──
+.DS_Store
+._*
+
+# ── Dropbox ──
+.dropbox
+.dropbox.attr
+.dropbox.cache/
+*conflicted copy*
+*copie en conflit*
+
+# ── Fichiers temporaires (Office, éditeurs, LaTeX) ──
+~$*
+*.tmp
+*.bak
+*.swp
+*.swo
+*.aux
+*.synctex.gz
+
+# ── Dossiers d'IDE ──
+.vscode/
+.idea/
+
+# ─────────────────────────────────────────────────────────────
+# NE PAS ignorer googlea37904f0d46e2a04.html : ce fichier doit
+# être publié pour que Google Search Console conserve la
+# propriété validée. Idem pour sitemap.xml.
+# ─────────────────────────────────────────────────────────────
